@@ -41,7 +41,10 @@ async fn concurrent_processes() -> Result<(), Box<dyn Error>> {
     let mut i = 0;
     loop {
         let handle = task::spawn(async move {
-            i * 1000
+            i * 1000;
+            task::spawn(async move {
+                i * 1000
+            }).await
         });
         handle.await;
         if i == 500 {

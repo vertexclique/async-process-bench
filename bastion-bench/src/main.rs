@@ -43,7 +43,10 @@ async fn concurrent_processes() -> Result<(), Box<dyn Error>> {
     loop {
         let stack = ProcStack::default().with_pid(pid);
         let handle = spawn(async move {
-            i * 1000
+            let stack2 = ProcStack::default().with_pid(i * 1000);
+            spawn(async move {
+                i * 1000
+            }, stack2).await
         }, stack);
         handle.await;
         if i == 500 {
