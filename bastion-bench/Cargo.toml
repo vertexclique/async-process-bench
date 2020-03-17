@@ -12,7 +12,3 @@ bastion = { "path" = "../../bastion/bastion" }
 bastion-executor = { "path" = "../../bastion/bastion-executor" }
 lightproc = { "path" = "../../bastion/lightproc" }
 futures-preview = "=0.3.0-alpha.19"
-
-[patch.crates-io.qutex]
-git = "https://github.com/bastion-rs/qutex"
-branch = "bastion-0.3"
