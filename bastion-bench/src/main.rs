@@ -3,7 +3,7 @@ use std::future::Future;
 use std::time::Duration;
 use bastion_executor::prelude::*;
 use lightproc::proc_stack::ProcStack;
-
+use lightproc::prelude::*;
 fn describe_header() {
     println!("{}\t{}", "runtime", "time per");
 }
@@ -77,7 +77,7 @@ fn main() {
     // Warm up
     run(
         run_benchmark(concurrent_processes, None, 100),
-        ProcStack::default().with_after_panic(|| println!("after panic")),
+        ProcStack::default().with_after_panic(|_s: &mut EmptyProcState| println!("after panic")),
     );
 
     describe_header();
@@ -85,6 +85,6 @@ fn main() {
     // Real thing
     run(
         run_benchmark(concurrent_processes, Some("bastion"), 5000),
-        ProcStack::default().with_after_panic(|| println!("after panic")),
+        ProcStack::default().with_after_panic(|_s: &mut EmptyProcState| println!("after panic")),
     );
 }
